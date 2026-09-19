@@ -1,0 +1,6 @@
+.DS_Store
+
+# Local reference-source snapshots are research inputs, not product code.
+.research/
+docx/claude-code/
+docx/deepseek-harness/
