@@ -32,9 +32,9 @@ This trace covers three related recovery paths:
 
 ### Preserved state
 
-- Text/reasoning delivered before cancellation is retained as an interrupted assistant message when non-whitespace content exists (`.research/deepseek-harness/packages/core/agent-loop/src/agent.ts:401-425`).
-- If no visible content arrived, the attempt stream is preserved as `assistant/attempt` without entering model history (`.research/deepseek-harness/packages/core/session/src/types.ts:311-335`).
-- Started tool calls retain their real results. Calls never dispatched receive explicit synthetic aborted results, preserving transcript validity (`.research/deepseek-harness/packages/core/agent-loop/src/tool-calls.ts:238-265`).
+- Text/reasoning delivered before cancellation is retained as an interrupted assistant message when non-whitespace content exists (`.references/deepseek-harness/packages/core/agent-loop/src/agent.ts:401-425`).
+- If no visible content arrived, the attempt stream is preserved as `assistant/attempt` without entering model history (`.references/deepseek-harness/packages/core/session/src/types.ts:311-335`).
+- Started tool calls retain their real results. Calls never dispatched receive explicit synthetic aborted results, preserving transcript validity (`.references/deepseek-harness/packages/core/agent-loop/src/tool-calls.ts:238-265`).
 
 ### Cancellation tests
 
@@ -45,7 +45,7 @@ This trace covers three related recovery paths:
 
 ### What was made durable before the crash
 
-The shipped checkpoint policy flushes before model dispatch, before a top-level tool body, and before the next step's request derivation (`.research/deepseek-harness/packages/session/session-checkpoint-policy/src/index.ts:63-82`).
+The shipped checkpoint policy flushes before model dispatch, before a top-level tool body, and before the next step's request derivation (`.references/deepseek-harness/packages/session/session-checkpoint-policy/src/index.ts:63-82`).
 
 This creates two distinguishable crash cases:
 
@@ -54,7 +54,7 @@ This creates two distinguishable crash cases:
 | Assistant message contains a tool call, but no `tool/call` exists | The call was never recorded as started | `TOOL_NOT_STARTED` |
 | `tool/call` exists, but no matching `tool/result` | The call may have produced an external effect | `TOOL_OUTCOME_UNKNOWN` |
 
-Evidence: `.research/deepseek-harness/packages/core/session/src/repair.ts:14-18`, `.research/deepseek-harness/packages/core/session/src/repair.ts:53-125`.
+Evidence: `.references/deepseek-harness/packages/core/session/src/repair.ts:14-18`, `.references/deepseek-harness/packages/core/session/src/repair.ts:53-125`.
 
 ### Repair algorithm
 
@@ -64,13 +64,13 @@ Evidence: `.research/deepseek-harness/packages/core/session/src/repair.ts:14-18`
 4. Append `step/end` if a step is open.
 5. Append `turn/end { kind: 'interrupted' }`.
 
-Evidence: `.research/deepseek-harness/packages/core/session/src/repair.ts:29-134`.
+Evidence: `.references/deepseek-harness/packages/core/session/src/repair.ts:29-134`.
 
 ### Resume flow
 
-- Resume obtains a write handle through `persistence.open(id, 'write')`, reads the valid stored event prefix, computes `interruptedTurnClosers()`, appends the closers, and then restores the Session (`.research/deepseek-harness/packages/core/agent-loop/src/index.ts:844-905`).
-- A write-open of a historical format decodes/migrates once, verifies the current generation, and publishes an immutable successor without replacing the source (`.research/deepseek-harness/packages/session/session-persistence-jsonl/README.md:74-82`).
-- JSONL write batches append and `fsync` before resolving. A torn final raw line is discarded; a torn final Zstd frame contributes only complete decoded records and is repaired before the first new batch (`.research/deepseek-harness/packages/session/session-persistence-jsonl/README.md:74-78`).
+- Resume obtains a write handle through `persistence.open(id, 'write')`, reads the valid stored event prefix, computes `interruptedTurnClosers()`, appends the closers, and then restores the Session (`.references/deepseek-harness/packages/core/agent-loop/src/index.ts:844-905`).
+- A write-open of a historical format decodes/migrates once, verifies the current generation, and publishes an immutable successor without replacing the source (`.references/deepseek-harness/packages/session/session-persistence-jsonl/README.md:74-82`).
+- JSONL write batches append and `fsync` before resolving. A torn final raw line is discarded; a torn final Zstd frame contributes only complete decoded records and is repaired before the first new batch (`.references/deepseek-harness/packages/session/session-persistence-jsonl/README.md:74-78`).
 
 ### Recovery model-visible result
 
@@ -78,7 +78,7 @@ Evidence: `.research/deepseek-harness/packages/core/session/src/repair.ts:29-134
 - It is explicitly told not to blind-retry a possibly side-effecting call whose outcome is unknown; it must verify state or ask the user.
 - Embedded streams and log-only boundary events do not duplicate conversation messages.
 
-Evidence: `.research/deepseek-harness/packages/session/session-persistence-jsonl/README.md:135-147`.
+Evidence: `.references/deepseek-harness/packages/session/session-persistence-jsonl/README.md:135-147`.
 
 ### Recovery tests
 
@@ -90,8 +90,8 @@ Evidence: `.research/deepseek-harness/packages/session/session-persistence-jsonl
 
 ### Trigger paths
 
-- Proactive pressure: the `agent/pre-step` listener runs `compactIfNeeded(..., 'pressure', signal)` before request derivation (`.research/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:148-166`).
-- Reactive overflow: an `agent/request-error` listener recognizes the canonical context-window failure and runs `compactIfNeeded(..., 'context-overflow', signal)` (`.research/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:180-224`).
+- Proactive pressure: the `agent/pre-step` listener runs `compactIfNeeded(..., 'pressure', signal)` before request derivation (`.references/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:148-166`).
+- Reactive overflow: an `agent/request-error` listener recognizes the canonical context-window failure and runs `compactIfNeeded(..., 'context-overflow', signal)` (`.references/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:180-224`).
 
 ### Transaction
 
@@ -104,13 +104,13 @@ Evidence: `.research/deepseek-harness/packages/session/session-persistence-jsonl
 7. Append one summary `user/message` with `surfaceOp: { op: 'replace', startSeq, endSeq }`, citing every shadowed node.
 8. Append `compaction/end`.
 
-Evidence: `.research/deepseek-harness/packages/compaction/compaction-basic/src/region.ts:455-493`, `.research/deepseek-harness/packages/compaction/compaction/README.md:91-95`.
+Evidence: `.references/deepseek-harness/packages/compaction/compaction-basic/src/region.ts:455-493`, `.references/deepseek-harness/packages/compaction/compaction/README.md:91-95`.
 
 ### Retry rule
 
-- Overflow recovery retries only if the surface replacement generation advanced. If compaction or pruning does not change the durable surface, the original provider error remains authoritative (`.research/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:192-223`).
-- If pruning landed durably but later summarization failed, the durable pruned prefix is sufficient to retry rather than discarding useful progress (`.research/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:197-208`).
-- Cancellation wins over an otherwise eligible retry (`.research/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:218-223`).
+- Overflow recovery retries only if the surface replacement generation advanced. If compaction or pruning does not change the durable surface, the original provider error remains authoritative (`.references/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:192-223`).
+- If pruning landed durably but later summarization failed, the durable pruned prefix is sufficient to retry rather than discarding useful progress (`.references/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:197-208`).
+- Cancellation wins over an otherwise eligible retry (`.references/deepseek-harness/packages/compaction/compaction-basic/src/index.ts:218-223`).
 
 ### What remains intact
 
@@ -119,7 +119,7 @@ Evidence: `.research/deepseek-harness/packages/compaction/compaction-basic/src/r
 - The current system head is protected at surface node 0.
 - Compaction events are log-only and cannot enter model history.
 
-Evidence: `.research/deepseek-harness/packages/compaction/compaction-basic/src/region.ts:340-353`, `.research/deepseek-harness/packages/core/session/src/surface.ts:399-416`.
+Evidence: `.references/deepseek-harness/packages/compaction/compaction-basic/src/region.ts:340-353`, `.references/deepseek-harness/packages/core/session/src/surface.ts:399-416`.
 
 ### Compaction tests
 

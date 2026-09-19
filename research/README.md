@@ -3,11 +3,11 @@
 > Status: Batch 0-5 first-pass research complete; experiments and fixture
 > implementation remain open
 >
-> Authority: [`../RESEARCH_PLAN_V1.md`](../RESEARCH_PLAN_V1.md)
+> Authority: [`PLAN.md`](./PLAN.md)
 >
 > Started: 2026-09-19
 
-This directory stores evidence-backed research for the spool coding-agent product. It does not store copied source code. Source evidence remains in the pinned repositories under `.research/` and `docx/`, with paths, symbols, commits, and tests referenced from these documents.
+This directory stores evidence-backed research for the spool coding-agent product. It does not store copied source code. Source evidence remains in the pinned repositories under `.references/`, with paths, symbols, commits, and tests referenced from these documents.
 
 ## Research contracts
 
@@ -32,24 +32,23 @@ landscape/
   papers/              Mechanism and frontier research
 frontier-radar/        Time-horizon watchlist
 comparisons/           Cross-source capability and mechanism matrices
-decisions/             Adoption and subtraction log
 templates/             Reusable evidence formats
 ```
 
 ## Navigation
 
 - Product architecture:
-  [`../ARCHITECTURE_V1.md`](../ARCHITECTURE_V1.md) records the independent,
+  [`architecture overview`](../docs/architecture/overview.md) records the independent,
   Claude-primary architecture direction and first-stage design candidates.
   Candidate design coverage does not change P0/P1 release scope.
 - Design convergence and implementation handoff:
-  [`execution contracts`](../docs/architecture/EXECUTION_CONTRACTS_V1.md) and
-  [`handoff`](../docs/ai/HANDOFF.md) distinguish selected technical baselines,
+  [`execution contracts`](../docs/architecture/execution-contracts.md) and
+  [`handoff`](../docs/delivery/handoff.md) distinguish selected technical baselines,
   unrun validation gates, and the confirmed basic-coding-agent first release.
 - First implementation:
-  [`P0 plan`](../docs/architecture/P0_IMPLEMENTATION_PLAN_V1.md) defines B0-B5,
+  [`P0 plan`](../docs/architecture/p0-plan.md) defines B0-B5,
   baseline acceptance, and deferred extensions;
-  [`progress`](../docs/ai/PROGRESS.md) records the current handoff status.
+  [`progress`](../docs/delivery/progress.md) records the current handoff status.
 - Research registry and evidence contracts:
   [`candidate-registry.md`](landscape/candidates/candidate-registry.md) and
   [`evidence-entry.md`](templates/evidence-entry.md).
@@ -74,7 +73,7 @@ templates/             Reusable evidence formats
   [`2026-q3.md`](frontier-radar/2026-q3.md) and
   [`2026-09-current-mechanism-radar.md`](frontier-radar/2026-09-current-mechanism-radar.md).
 - Product decisions:
-  [`subtraction-log.md`](decisions/subtraction-log.md).
+  [`subtraction-log.md`](../docs/decisions/subtraction-log.md).
 
 ## Abandoned Research
 
@@ -94,7 +93,7 @@ remain only as historical evidence and must not create follow-up work:
 | Batch 2 | Complete | Both L3-L4 maps, all Trace B/C documents, [protocol comparison](landscape/protocols/mcp-acp-a2a-boundaries.md), [evaluation evidence](landscape/benchmarks/runtime-evaluation-and-failure-evidence.md), [mechanism notes](landscape/papers/mechanism-notes.md) | Context-compaction and session-format probes |
 | Batch 3 | Complete | Both L5 maps and [security/execution comparison](comparisons/security-and-execution-models.md) | Sandbox experiments E1-E10 |
 | Batch 4 | Complete | Both L6-L8 maps and [extension/product-surface comparison](comparisons/extensions-and-product-surfaces.md) | Executable extension probes and product-shell implementation |
-| Batch 5 | First-pass complete | [Capability matrix](comparisons/capability-matrix.md) and [subtraction log](decisions/subtraction-log.md) | Probe outcomes, benchmark execution, and implementation choices |
+| Batch 5 | First-pass complete | [Capability matrix](comparisons/capability-matrix.md) and [subtraction log](../docs/decisions/subtraction-log.md) | Probe outcomes, benchmark execution, and implementation choices |
 
 ## Benchmark Entry
 

@@ -8,10 +8,10 @@
 > Purpose: expand the adjacent-source sample beyond Claude Code and DeepSeek
 > Harness without turning product-surface breadth into implementation scope.
 >
-> Authority: [`../../../RESEARCH_PLAN_V1.md`](../../../RESEARCH_PLAN_V1.md)
+> Authority: [`../../../research/PLAN.md`](../../PLAN.md)
 >
 > Product boundary:
-> [`../../../DEVELOPMENT_SCOPE_V1.md`](../../../DEVELOPMENT_SCOPE_V1.md)
+> [`../../../docs/product/scope.md`](../../../docs/product/scope.md)
 
 ## 1. Selection rule
 
@@ -234,7 +234,7 @@ IDE extension, scheduled automation, connectors, and multi-agent teams.
 
 Treat it as a product-surface study, not the next core runtime deep dive. Its
 monorepo breadth would pull spool toward platform features that
-`DEVELOPMENT_SCOPE_V1.md` explicitly defers or freezes.
+`docs/product/scope.md` explicitly defers or freezes.
 
 ### Crush
 

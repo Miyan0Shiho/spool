@@ -4,7 +4,7 @@
 >
 > Package version label: `999.0.0-restored`
 >
-> Local path: `docx/claude-code`
+> Local path: `.references/claude-code`
 >
 > Research status: Batch 1 source map and Trace A/B/C coverage completed for the currently available mirror.
 
@@ -56,7 +56,7 @@ Every material entry separates:
 
 ## Verification
 
-Run from `docx/claude-code`:
+Run from `.references/claude-code`:
 
 ```sh
 git rev-parse HEAD

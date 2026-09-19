@@ -2,7 +2,7 @@
 
 > Status: active
 >
-> Authority: [`../../RESEARCH_PLAN_V1.md`](../../RESEARCH_PLAN_V1.md)
+> Authority: [`../../research/PLAN.md`](../PLAN.md)
 
 This directory contains cross-source mechanism and capability comparisons. Each
 comparison must keep source facts separate from interpretation and spool
@@ -40,5 +40,5 @@ first-party specification.
 
 These documents synthesize evidence. They do not replace the source atlas and
 they do not make product decisions. Stable conclusions belong in
-[`../decisions/subtraction-log.md`](../decisions/subtraction-log.md) only after
+[`../decisions/subtraction-log.md`](../../docs/decisions/subtraction-log.md) only after
 the required evidence gate is satisfied.

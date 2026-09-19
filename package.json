@@ -1,0 +1,37 @@
+{
+  "name": "spool",
+  "version": "0.1.0-rc.1",
+  "description": "Reliable coding-agent runtime for real repositories.",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "spool": "./bin/spool.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=24.21.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "npm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test tests/unit/*.test.mjs",
+    "test:integration": "npm run build && node --test tests/integration/*.test.mjs",
+    "test:package": "node tests/package/check-package.mjs",
+    "test:b3": "npm run build && node tests/e2e/deepseek-coding-smoke.mjs",
+    "release:check": "node tests/package/release-check.mjs",
+    "bench:fixed": "npm run build && node benchmarks/fixed-v1/runner.mjs",
+    "bench:summary": "node benchmarks/fixed-v1/summary.mjs",
+    "bench:check": "node benchmarks/fixed-v1/check-result.mjs",
+    "check": "npm run typecheck && npm test && npm run test:integration && npm run test:package"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.6",
+    "typescript": "7.0.2"
+  }
+}

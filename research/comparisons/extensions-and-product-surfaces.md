@@ -4,7 +4,7 @@
 >
 > Date: 2026-09-19
 >
-> Authority: [`../../RESEARCH_PLAN_V1.md`](../../RESEARCH_PLAN_V1.md)
+> Authority: [`../../research/PLAN.md`](../PLAN.md)
 >
 > Scope: L6 interaction, L7 extensions and integration, L8 advanced surfaces
 >
@@ -78,7 +78,7 @@ later expansions unless the benchmark changes the priority.
 
 **Fact: DeepSeek Harness.**
 
-- [`CommandRuntime.register()`](../../.research/deepseek-harness/packages/interaction/commands/src/index.ts)
+- [`CommandRuntime.register()`](../../.references/deepseek-harness/packages/interaction/commands/src/index.ts)
   accepts a plugin-owned `CommandDefinition` with name, description, optional
   input metadata, and a direct UI handler.
 - `execute()` records `command/run` before invocation and `command/done` after
@@ -88,27 +88,27 @@ later expansions unless the benchmark changes the priority.
   for the receiving agent.
 - Registration returns an effect disposer, so unload or HMR unregisters the
   command. See
-  [`CommandRuntime`](../../.research/deepseek-harness/packages/interaction/commands/src/index.ts)
+  [`CommandRuntime`](../../.references/deepseek-harness/packages/interaction/commands/src/index.ts)
   and
-  [`commands`](../../.research/deepseek-harness/packages/interaction/commands/README.md).
+  [`commands`](../../.references/deepseek-harness/packages/interaction/commands/README.md).
 - Interactive adapters consume the registry; headless and ACP do not expose
   this human-command surface.
 
 **Fact: Claude Code.**
 
-- [`loadAllCommands()`](../../docx/claude-code/src/commands.ts) merges bundled
+- [`loadAllCommands()`](../../.references/claude-code/src/commands.ts) merges bundled
   skills, built-in plugin skills, skill directories, workflows, plugin
   commands, plugin skills, and built-in commands into one `Command[]`.
 - Markdown-backed commands and `SKILL.md` files are discovered from managed,
   user, and project configuration directories by
-  [`loadMarkdownFilesForSubdir()`](../../docx/claude-code/src/utils/markdownConfigLoader.ts)
+  [`loadMarkdownFilesForSubdir()`](../../.references/claude-code/src/utils/markdownConfigLoader.ts)
   and
-  [`getSkillDirCommands()`](../../docx/claude-code/src/skills/loadSkillsDir.ts).
+  [`getSkillDirCommands()`](../../.references/claude-code/src/skills/loadSkillsDir.ts).
 - `Command` is a union of prompt, local, and local-JSX commands. Frontmatter can
   select allowed tools, model, effort, inline or forked context, and
   command-scoped hooks. See
-  [`types/command.ts`](../../docx/claude-code/src/types/command.ts) and
-  [`createSkillCommand()`](../../docx/claude-code/src/skills/loadSkillsDir.ts).
+  [`types/command.ts`](../../.references/claude-code/src/types/command.ts) and
+  [`createSkillCommand()`](../../.references/claude-code/src/skills/loadSkillsDir.ts).
 - Command discovery is memoized and refreshed through explicit cache-clearing
   functions such as `clearCommandsCache()` and
   `clearCommandMemoizationCaches()`.
@@ -131,13 +131,13 @@ lifecycle semantics.
 
 **Fact: DeepSeek Harness.**
 
-- [`SkillRegistry`](../../.research/deepseek-harness/packages/skill/skill/src/index.ts)
+- [`SkillRegistry`](../../.references/deepseek-harness/packages/skill/skill/src/index.ts)
   merges providers into a host and per-scope layered registry.
-- [`skill-filesystem`](../../.research/deepseek-harness/packages/skill/skill-filesystem/src/index.ts)
+- [`skill-filesystem`](../../.references/deepseek-harness/packages/skill/skill-filesystem/src/index.ts)
   ranks project `.dsh/skills`, project `.agents/skills`, custom roots, user
   roots, and bundled skills. It supports directory bundles and flat Markdown
   files, not recursive `**/SKILL.md`.
-- [`tool-skill`](../../.research/deepseek-harness/packages/skill/tool-skill/src/index.ts)
+- [`tool-skill`](../../.references/deepseek-harness/packages/skill/tool-skill/src/index.ts)
   injects only name and description into the session catalog. The full body is
   loaded on the model's `skill` tool call.
 - Provider registration and runtime skill registration are effect-scoped and
@@ -152,7 +152,7 @@ lifecycle semantics.
   registry, invocation UI, and model-invocation filtering.
 - Frontmatter controls model invocation, user invocation, allowed tools,
   model, effort, path activation, forked execution, and hooks.
-- [`SkillTool`](../../docx/claude-code/src/tools/SkillTool/SkillTool.ts)
+- [`SkillTool`](../../.references/claude-code/src/tools/SkillTool/SkillTool.ts)
   resolves the command, applies invocation policy, and either expands the
   skill in the current context or runs it in a forked agent.
 
@@ -176,7 +176,7 @@ is content and metadata only, with hooks excluded.
 **Fact: DeepSeek Harness.**
 
 - The shared engine is
-  [`hook-protocol`](../../.research/deepseek-harness/packages/hooks/hook-protocol/src/index.ts).
+  [`hook-protocol`](../../.references/deepseek-harness/packages/hooks/hook-protocol/src/index.ts).
   It validates matchers, runs commands through the shell seam, decodes output,
   merges decisions, and records `hook/invoked` and `hook/result`.
 - The Claude Code and Codex bridges subscribe to runtime events including
@@ -192,11 +192,11 @@ is content and metadata only, with hooks excluded.
 
 **Fact: Claude Code.**
 
-- [`hooks` utilities](../../docx/claude-code/src/utils/hooks.ts) implement the
+- [`hooks` utilities](../../.references/claude-code/src/utils/hooks.ts) implement the
   hook runtime and lifecycle.
 - The persisted hook schema supports command, prompt, agent, and HTTP hook
   types in
-  [`schemas/hooks.ts`](../../docx/claude-code/src/schemas/hooks.ts).
+  [`schemas/hooks.ts`](../../.references/claude-code/src/schemas/hooks.ts).
 - Hook configuration can come from user, project, local, managed, plugin,
   skill, or in-memory session sources. Plugin and skill hooks are converted to
   native matchers.
@@ -222,10 +222,10 @@ trust, no implicit `allow` override, and a visible audit trail.
 
 **Fact: DeepSeek Harness.**
 
-- [`mcp-client`](../../.research/deepseek-harness/packages/mcp/mcp-client/src/index.ts)
+- [`mcp-client`](../../.references/deepseek-harness/packages/mcp/mcp-client/src/index.ts)
   supports stdio and Streamable HTTP transports. Each configured server is one
   plugin instance with a stable `serverName`.
-- [`syncTools()`](../../.research/deepseek-harness/packages/mcp/mcp-client/src/tools.ts)
+- [`syncTools()`](../../.references/deepseek-harness/packages/mcp/mcp-client/src/tools.ts)
   drains paginated `tools/list`, constructs a complete generation, then swaps
   registrations atomically. Disposal unregisters that generation.
 - Public names are `mcp__<serverName>__<rawName>`, normalized to DeepSeek
@@ -239,14 +239,14 @@ trust, no implicit `allow` override, and a visible audit trail.
 
 **Fact: Claude Code.**
 
-- [`McpServerConfigSchema`](../../docx/claude-code/src/services/mcp/types.ts)
+- [`McpServerConfigSchema`](../../.references/claude-code/src/services/mcp/types.ts)
   recognizes stdio, SSE, HTTP, WebSocket, IDE SSE/WebSocket, SDK, and
   claude.ai proxy server types.
-- [`client.ts`](../../docx/claude-code/src/services/mcp/client.ts) imports MCP
+- [`client.ts`](../../.references/claude-code/src/services/mcp/client.ts) imports MCP
   tool, resource, prompt, elicitation, root, and OAuth-related SDK types.
   MCP tools are converted to native `Tool` definitions; resource and auth
   tools are also present.
-- [`assembleToolPool()`](../../docx/claude-code/src/tools.ts) combines built-in
+- [`assembleToolPool()`](../../.references/claude-code/src/tools.ts) combines built-in
   and MCP tools, removes denied MCP tools, and gives built-ins precedence on a
   name collision.
 - Plugin-provided MCP servers are namespaced and deduplicated against manual
@@ -282,7 +282,7 @@ third-party tools become a P0 release blocker.
 - An application bundle is a static patch layer declared through
   `dsh.bundle.patch`. `dsh plugin` forwards package management to pnpm and
   reconciles `dsh.profile.bundles`.
-- [`composeProfile()`](../../.research/deepseek-harness/apps/cli/src/profile-boot.ts)
+- [`composeProfile()`](../../.references/deepseek-harness/apps/cli/src/profile-boot.ts)
   stacks bundle patches, profile patches, home patches, and invocation
   overlays before boot.
 - Bundle membership changes on disk require a restart. A live-reload profile
@@ -294,11 +294,11 @@ third-party tools become a P0 release blocker.
 
 **Fact: Claude Code.**
 
-- [`PluginManifestSchema`](../../docx/claude-code/src/utils/plugins/schemas.ts)
+- [`PluginManifestSchema`](../../.references/claude-code/src/utils/plugins/schemas.ts)
   describes declarative contributions: commands, agents, skills, hooks,
   output styles, MCP servers, LSP servers, settings, user configuration, and
   channels.
-- [`createPluginFromPath()`](../../docx/claude-code/src/utils/plugins/pluginLoader.ts)
+- [`createPluginFromPath()`](../../.references/claude-code/src/utils/plugins/pluginLoader.ts)
   scans conventional directories and loads all declared components.
 - Plugin command, skill, agent, and hook caches are refreshed through explicit
   clear/reload paths.
@@ -329,7 +329,7 @@ smaller trust boundary than loading third-party host code.
 - `ctx.tools.register(defineTool(...))` is the native custom-tool path. The
   definition includes model schema, canonical output schema, execute callback,
   optional presentation, timeout, and concurrency metadata.
-- [`ToolRuntime`](../../.research/deepseek-harness/packages/core/tools/src/index.ts)
+- [`ToolRuntime`](../../.references/deepseek-harness/packages/core/tools/src/index.ts)
   owns the execution pipeline:
   `tools/pre-execute`, monotonic guards, `tools/execute`,
   `tools/post-execute`, `finalizeContent`, and `tools/result`.
@@ -342,9 +342,9 @@ smaller trust boundary than loading third-party host code.
 - SDK custom tools use `tool()` plus `createSdkMcpServer()` and are passed to
   `query()` through `mcpServers`.
 - The mirror exposes `createSdkMcpServer()` in
-  [`agentSdkTypes.ts`](../../docx/claude-code/src/entrypoints/agentSdkTypes.ts)
+  [`agentSdkTypes.ts`](../../.references/claude-code/src/entrypoints/agentSdkTypes.ts)
   as a public SDK type/entrypoint stub. Runtime setup is implemented by
-  [`setupSdkMcpClients()`](../../docx/claude-code/src/services/mcp/client.ts),
+  [`setupSdkMcpClients()`](../../.references/claude-code/src/services/mcp/client.ts),
   using `SdkControlClientTransport`.
 - The official first-party documentation states that the SDK custom-tool
   server runs in-process in the application and is addressed through the MCP
@@ -368,7 +368,7 @@ both paths into one `ToolDefinition` and one permission pipeline.
 
 **Fact: DeepSeek Harness.**
 
-- [`sdk`](../../.research/deepseek-harness/packages/sdk/README.md) is a family
+- [`sdk`](../../.references/deepseek-harness/packages/sdk/README.md) is a family
   of protocol, client, and server packages. Clients drive a complete runtime
   over newline-delimited JSON-RPC on stdio.
 - The TypeScript client launches `dsh` with a named profile and ordered patch
@@ -382,11 +382,11 @@ both paths into one `ToolDefinition` and one permission pipeline.
 
 **Fact: Claude Code.**
 
-- [`QueryEngine.submitMessage()`](../../docx/claude-code/src/QueryEngine.ts)
+- [`QueryEngine.submitMessage()`](../../.references/claude-code/src/QueryEngine.ts)
   owns query lifecycle and session state. It calls the shared lower-level
-  [`query()`](../../docx/claude-code/src/query.ts).
+  [`query()`](../../.references/claude-code/src/query.ts).
 - The headline operator calls the same `query()` function.
-- [`runAgent()`](../../docx/claude-code/src/tools/AgentTool/runAgent.ts) also
+- [`runAgent()`](../../.references/claude-code/src/tools/AgentTool/runAgent.ts) also
   calls `query()`, so subagents share the query engine rather than a separate
   loop.
 - The official Agent SDK overview states that the SDK exposes the same tools,
@@ -410,7 +410,7 @@ stable.
 
 **Fact: DeepSeek Harness.**
 
-- [`dsh-acp`](../../.research/deepseek-harness/packages/acp/acp/src/index.ts)
+- [`dsh-acp`](../../.references/deepseek-harness/packages/acp/acp/src/index.ts)
   is an automation-only ACP server over JSON-RPC stdio.
 - `initialize` advertises ACP protocol version, image prompt support when the
   route supports it, Streamable HTTP MCP support, and the session list,
@@ -465,11 +465,11 @@ automation subset is more honest than advertising unsupported UI capabilities.
   profiles or aliases rather than separate bins.
 - The base bundle supplies the shared model connection, tool set, persistence,
   and permission defaults to all base-backed surfaces.
-- [`web-app`](../../.research/deepseek-harness/packages/bundle/web-app/README.md)
+- [`web-app`](../../.references/deepseek-harness/packages/bundle/web-app/README.md)
   adds the browser host and client while keeping the base runtime. The shipped
   Web GUI is in-process with the host runtime and uses the same tools and
   safety defaults.
-- [`apps/desktop`](../../.research/deepseek-harness/apps/desktop/README.md) is
+- [`apps/desktop`](../../.references/deepseek-harness/apps/desktop/README.md) is
   an Electron shell around a bundled `dsh` runtime and separate plugin state.
   It shares sessions, settings, credentials, and workspaces through the common
   DSH home.
@@ -479,22 +479,22 @@ automation subset is more honest than advertising unsupported UI capabilities.
 **Fact: Claude Code mirror.**
 
 - The interactive TUI is the direct in-process surface:
-  [`main.tsx`](../../docx/claude-code/src/main.tsx) mounts the REPL and Ink UI.
+  [`main.tsx`](../../.references/claude-code/src/main.tsx) mounts the REPL and Ink UI.
 - Headless and SDK mode use
-  [`StructuredIO`](../../docx/claude-code/src/cli/structuredIO.ts),
-  [`runHeadless()`](../../docx/claude-code/src/cli/print.ts), and
+  [`StructuredIO`](../../.references/claude-code/src/cli/structuredIO.ts),
+  [`runHeadless()`](../../.references/claude-code/src/cli/print.ts), and
   `QueryEngine`, while the REPL calls the same lower-level `query()`.
 - IDE integration is a connector boundary, not a separate editor runtime.
-  [`detectIDEs()`](../../docx/claude-code/src/utils/ide.ts) reads IDE lockfiles
+  [`detectIDEs()`](../../.references/claude-code/src/utils/ide.ts) reads IDE lockfiles
   and connects through IDE MCP transports or RPC.
 - The mirror contains a Desktop handoff command and Claude Desktop MCP-config
   reader, but no bundled desktop shell.
 - Remote Web and mobile access are implemented through the remote-control
   bridge and WebSocket session transport:
-  [`bridgeMain()`](../../docx/claude-code/src/bridge/bridgeMain.ts),
-  [`RemoteSessionManager`](../../docx/claude-code/src/remote/RemoteSessionManager.ts),
+  [`bridgeMain()`](../../.references/claude-code/src/bridge/bridgeMain.ts),
+  [`RemoteSessionManager`](../../.references/claude-code/src/remote/RemoteSessionManager.ts),
   and
-  [`SessionsWebSocket`](../../docx/claude-code/src/remote/SessionsWebSocket.ts).
+  [`SessionsWebSocket`](../../.references/claude-code/src/remote/SessionsWebSocket.ts).
   The inspected mirror contains no local Web UI.
 
 **Interpretation.** The product surface should be a client of stable runtime

@@ -8,7 +8,7 @@
 >
 > Task count: 27
 >
-> Product authority: [`../../../DEVELOPMENT_SCOPE_V1.md`](../../../DEVELOPMENT_SCOPE_V1.md)
+> Product authority: [`../../../docs/product/scope.md`](../../../docs/product/scope.md)
 
 ## 1. Purpose and non-claims
 

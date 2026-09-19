@@ -8,7 +8,7 @@
 > Scope: distinguish open models, open CLIs, open harnesses, source-available
 > platforms, and closed product services.
 >
-> Authority: [`../../../RESEARCH_PLAN_V1.md`](../../../RESEARCH_PLAN_V1.md)
+> Authority: [`../../../research/PLAN.md`](../../PLAN.md)
 
 ## 1. Codex: what is open
 

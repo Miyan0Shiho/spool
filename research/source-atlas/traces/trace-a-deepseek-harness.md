@@ -37,7 +37,7 @@ This trace assumes one fresh persisted session, one direct user task, one succes
 | 17. Step/turn boundaries close | `packages/core/agent-loop/src/agent.ts:311-343` | `step/end`, optional `agent/turn-stopping`, `turn/end { completed }` |
 | 18. Caller observes quiescence | `packages/bundle/headless/src/index.ts:202-206` | `whenIdle()` resolves after whole-agent inactivity |
 | 19. Session is flushed | `packages/bundle/headless/src/index.ts:206`; `packages/core/session/src/index.ts:1144-1160` | Durable persistence barrier |
-| 20. Final output is derived | `packages/bundle/headless/src/index.ts:63-89`, `.research/deepseek-harness/packages/bundle/headless/src/index.ts:207-212` | Last non-empty assistant text and terminal turn reason; stdout and exit code |
+| 20. Final output is derived | `packages/bundle/headless/src/index.ts:63-89`, `.references/deepseek-harness/packages/bundle/headless/src/index.ts:207-212` | Last non-empty assistant text and terminal turn reason; stdout and exit code |
 
 ## Expected no-tool event order
 
@@ -59,21 +59,21 @@ turn/end { kind: "completed" }
 
 ## Prompt and request construction
 
-- Fact: `agent/pre-step` receives claimed messages, turn/step identity, and the live signal. Its returned decision is authoritative (`.research/deepseek-harness/packages/core/agent/src/runtime-types.ts:318-347`).
-- Fact: prompt assembly returns sections, dynamic contexts, tools, and variables. Runtime contexts are projected into sourced user-role snapshots after entered messages (`.research/deepseek-harness/packages/core/agent-loop/src/agent.ts:240-255`, `.research/deepseek-harness/packages/core/system-prompt/src/index.ts:552-627`).
-- Fact: user admission occurs only on the first attempt and after route preparation succeeds; cancellation during route preparation commits neither prompt nor users (`.research/deepseek-harness/packages/core/agent-loop/src/agent.ts:358-378`, `.research/deepseek-harness/docs/architecture.md:107-111`).
-- Fact: the loop derives messages from the session log and records the request header separately. The built request carries config, derived messages, tools, session id, and the live signal (`.research/deepseek-harness/packages/core/agent-loop/src/agent.ts:552-617`).
+- Fact: `agent/pre-step` receives claimed messages, turn/step identity, and the live signal. Its returned decision is authoritative (`.references/deepseek-harness/packages/core/agent/src/runtime-types.ts:318-347`).
+- Fact: prompt assembly returns sections, dynamic contexts, tools, and variables. Runtime contexts are projected into sourced user-role snapshots after entered messages (`.references/deepseek-harness/packages/core/agent-loop/src/agent.ts:240-255`, `.references/deepseek-harness/packages/core/system-prompt/src/index.ts:552-627`).
+- Fact: user admission occurs only on the first attempt and after route preparation succeeds; cancellation during route preparation commits neither prompt nor users (`.references/deepseek-harness/packages/core/agent-loop/src/agent.ts:358-378`, `.references/deepseek-harness/docs/architecture.md:107-111`).
+- Fact: the loop derives messages from the session log and records the request header separately. The built request carries config, derived messages, tools, session id, and the live signal (`.references/deepseek-harness/packages/core/agent-loop/src/agent.ts:552-617`).
 
 ## Successful stream settlement
 
-- Fact: `agent/assistant-stream` publishes a process-local `start`, transient ordered `chunk` frames, and exactly one terminal `end` frame (`.research/deepseek-harness/packages/core/agent/src/runtime-types.ts:127-161`, `.research/deepseek-harness/packages/core/agent-loop/src/agent.ts:380-386`).
-- Fact: live chunks are not the replay source. The loop embeds the compact timed stream in the durable `assistant/message` before emitting the committed end frame (`.research/deepseek-harness/packages/core/agent-loop/src/agent.ts:466-483`).
-- Fact: `assistant/message` can carry usage, but its absence is valid when the adapter did not report token accounting (`.research/deepseek-harness/packages/core/session/src/types.ts:311-335`).
+- Fact: `agent/assistant-stream` publishes a process-local `start`, transient ordered `chunk` frames, and exactly one terminal `end` frame (`.references/deepseek-harness/packages/core/agent/src/runtime-types.ts:127-161`, `.references/deepseek-harness/packages/core/agent-loop/src/agent.ts:380-386`).
+- Fact: live chunks are not the replay source. The loop embeds the compact timed stream in the durable `assistant/message` before emitting the committed end frame (`.references/deepseek-harness/packages/core/agent-loop/src/agent.ts:466-483`).
+- Fact: `assistant/message` can carry usage, but its absence is valid when the adapter did not report token accounting (`.references/deepseek-harness/packages/core/session/src/types.ts:311-335`).
 
 ## UI/caller projection
 
-- Headless caller: the final text is derived from durable events in the owned sequence interval, not from the live stream. Reasoning deltas are written to stderr during the run, but final text and exit behavior come from the session log (`.research/deepseek-harness/packages/bundle/headless/src/index.ts:63-89`, `.research/deepseek-harness/packages/bundle/headless/src/index.ts:100-156`).
-- Web/UI caller: the API/session-controller combines durable history with live `agent/assistant-stream` frames so the browser can paint streaming output while retaining durable events for replay (`.research/deepseek-harness/packages/api/session-controller/src/history.ts:54-170`, `.research/deepseek-harness/packages/api/session-controller/src/client/transport.ts:58-76`).
+- Headless caller: the final text is derived from durable events in the owned sequence interval, not from the live stream. Reasoning deltas are written to stderr during the run, but final text and exit behavior come from the session log (`.references/deepseek-harness/packages/bundle/headless/src/index.ts:63-89`, `.references/deepseek-harness/packages/bundle/headless/src/index.ts:100-156`).
+- Web/UI caller: the API/session-controller combines durable history with live `agent/assistant-stream` frames so the browser can paint streaming output while retaining durable events for replay (`.references/deepseek-harness/packages/api/session-controller/src/history.ts:54-170`, `.references/deepseek-harness/packages/api/session-controller/src/client/transport.ts:58-76`).
 
 ## Failure and cancellation variants
 

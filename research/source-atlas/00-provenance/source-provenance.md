@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Local path | `/Users/liuminxuan/Desktop/spool/.research/deepseek-harness` |
+| Local path | `/Users/liuminxuan/Desktop/spool/.references/deepseek-harness` |
 | Upstream | `https://github.com/deepseek-ai/deepseek-harness.git` |
 | Revision | `c291e7961a515f6d7af9304e7fd1d257929aef26` |
 | Revision date | 2026-09-10 |
@@ -31,7 +31,7 @@ Research rules:
 
 | Field | Value |
 |---|---|
-| Local path | `/Users/liuminxuan/Desktop/spool/docx/claude-code` |
+| Local path | `/Users/liuminxuan/Desktop/spool/.references/claude-code` |
 | Upstream mirror | `https://github.com/didilili/claude-code-source-mirror.git` |
 | Revision | `5c4f331be6f162bb2f409a2435e9b989bedfafe3` |
 | Revision date | 2026-04-01 |
@@ -59,10 +59,10 @@ Research rules:
 ## Verification Commands
 
 ```sh
-git -C .research/deepseek-harness rev-parse HEAD
-git -C .research/deepseek-harness status --short --branch
-git -C docx/claude-code rev-parse HEAD
-git -C docx/claude-code status --short --branch
+git -C .references/deepseek-harness rev-parse HEAD
+git -C .references/deepseek-harness status --short --branch
+git -C .references/claude-code rev-parse HEAD
+git -C .references/claude-code status --short --branch
 ```
 
 ## Related Audit

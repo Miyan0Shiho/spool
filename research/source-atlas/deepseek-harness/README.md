@@ -4,7 +4,7 @@
 >
 > Package version: `0.1.5-rc.2`
 >
-> Local path: `.research/deepseek-harness`
+> Local path: `.references/deepseek-harness`
 
 ## Coverage
 

@@ -2,7 +2,7 @@
 
 > Status: source/mechanism traces complete for the pinned revisions
 >
-> Authority: [`../../../RESEARCH_PLAN_V1.md`](../../../RESEARCH_PLAN_V1.md)
+> Authority: [`../../../research/PLAN.md`](../../PLAN.md)
 
 These traces connect the layered source atlases to end-to-end runtime paths.
 They are reconstructed from pinned source and source-observed tests, not from

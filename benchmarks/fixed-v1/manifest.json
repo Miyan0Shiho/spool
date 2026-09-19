@@ -1,0 +1,32 @@
+{
+  "version": "BENCH-FIXED-V1",
+  "tasks": [
+    { "id": "T01", "title": "Accent-safe slug generation", "status": "implemented" },
+    { "id": "T02", "title": "Half-up money rounding", "status": "implemented" },
+    { "id": "T03", "title": "Secret redaction preserves surrounding text", "status": "implemented" },
+    { "id": "T04", "title": "Add a CSV totals command", "status": "implemented" },
+    { "id": "T05", "title": "Add retry policy without changing request semantics", "status": "implemented" },
+    { "id": "T06", "title": "Add JSON output mode to an existing CLI", "status": "implemented" },
+    { "id": "T07", "title": "Locate a multiline log parser failure", "status": "implemented" },
+    { "id": "T08", "title": "Fix a DST boundary failure", "status": "implemented" },
+    { "id": "T09", "title": "Stabilize nondeterministic result ordering", "status": "implemented" },
+    { "id": "T10", "title": "Extract validation without changing its API", "status": "implemented" },
+    { "id": "T11", "title": "Replace storage backend without changing serialized format", "status": "implemented" },
+    { "id": "T12", "title": "Centralize path normalization behavior", "status": "implemented" },
+    { "id": "T13", "title": "Add interval-parser boundary tests", "status": "implemented" },
+    { "id": "T14", "title": "Add a path-traversal regression test", "status": "implemented" },
+    { "id": "T15", "title": "Test shell-runner cancellation cleanup", "status": "implemented" },
+    { "id": "T16", "title": "Repair a local lockfile mismatch", "status": "implemented" },
+    { "id": "T17", "title": "Fix packaging entry points", "status": "implemented" },
+    { "id": "T18", "title": "Align module format and engine configuration", "status": "implemented" },
+    { "id": "T19", "title": "Commit only the intended files amid unrelated work", "status": "implemented" },
+    { "id": "T20", "title": "Recover a detached HEAD without losing work", "status": "implemented" },
+    { "id": "T21", "title": "Undo a local commit while preserving changes", "status": "implemented" },
+    { "id": "T22", "title": "Modify a service while a long process is running", "status": "implemented" },
+    { "id": "T23", "title": "Follow a background build and continue independent work", "status": "implemented" },
+    { "id": "T24", "title": "Resume after interruption between edit and verification", "status": "implemented" },
+    { "id": "T25", "title": "Resume and clean up an interrupted background task", "status": "implemented" },
+    { "id": "T26", "title": "Continue safely after a workspace-boundary denial", "status": "implemented" },
+    { "id": "T27", "title": "Clean generated artifacts without destructive commands", "status": "implemented" }
+  ]
+}

@@ -4,7 +4,7 @@
 >
 > Date: 2026-09-19
 >
-> Authority: [`../../RESEARCH_PLAN_V1.md`](../../RESEARCH_PLAN_V1.md)
+> Authority: [`../../research/PLAN.md`](../PLAN.md)
 >
 > Scope: entry assembly, agent loop, turn/step state, prompt construction,
 > model streaming, continuation, cancellation, and durable session boundaries.

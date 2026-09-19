@@ -4,9 +4,9 @@
 >
 > Date: 2026-09-19
 >
-> Authority: [`../../RESEARCH_PLAN_V1.md`](../../RESEARCH_PLAN_V1.md)
+> Authority: [`../../research/PLAN.md`](../PLAN.md)
 >
-> Product boundary: [`../../DEVELOPMENT_SCOPE_V1.md`](../../DEVELOPMENT_SCOPE_V1.md)
+> Product boundary: [`../../docs/product/scope.md`](../../docs/product/scope.md)
 
 This matrix separates mechanism decisions from later implementation choices.
 `adopt` fixes a boundary or requirement. `probe` means the mechanism is
@@ -19,13 +19,13 @@ As clarified on 2026-09-19, product code is independently implemented with
 Claude Code as the primary reference. Autonomous task orchestration, persistent
 goals, and observability are confirmed design concerns, with DeepSeek Harness
 as a focused complementary reference, not a runtime dependency. The
-[`architecture draft`](../../ARCHITECTURE_V1.md) records candidate boundaries;
+[`architecture draft`](../../docs/architecture/overview.md) records candidate boundaries;
 it does not silently change P0 release scope or treat the April Claude mirror
 as evidence of all behavior in current official documentation.
 
 The user has now confirmed a basic coding-agent first release. Goal,
 orchestration, and richer observability are subsequent increments. The
-[`P0 plan`](../../docs/architecture/P0_IMPLEMENTATION_PLAN_V1.md) specifies
+[`P0 plan`](../../docs/architecture/p0-plan.md) specifies
 which parts of mixed runtime/extension tests remain mandatory in P0.
 
 ## Matrix
@@ -44,7 +44,7 @@ which parts of mixed runtime/extension tests remain mandatory in P0.
 | Interactive/headless orchestration ownership | [Runtime L0-L2](runtime-l0-l2.md) | `probe` | unknown | Decide how much orchestration can live above the shared runtime without incompatible session or permission semantics |
 | Provider opaque reasoning/thinking round-trip | [Frontier radar](../frontier-radar/2026-09-current-mechanism-radar.md) | `probe` | unknown | Must preserve provider artifacts without interpreting them; define capability metadata before coding |
 | Context compaction with preserved task state | [DeepSeek L4](../source-atlas/deepseek-harness/02-tools-session-context.md), [Claude L4](../source-atlas/claude-code/02-tools-session-context.md) | `probe` | keep | Preserve goal, edits, verification, unresolved work, tool-call validity, and recovery semantics |
-| Append-only durable records and projections | [Execution contracts](../../docs/architecture/EXECUTION_CONTRACTS_V1.md) | `probe` | keep | Prefer a transaction-backed record and parent/child shared storage domain; SQLite driver/schema remain unverified and unapproved as dependencies |
+| Append-only durable records and projections | [Execution contracts](../../docs/architecture/execution-contracts.md) | `probe` | keep | Prefer a transaction-backed record and parent/child shared storage domain; SQLite driver/schema remain unverified and unapproved as dependencies |
 | Permission decisions separate from execution enforcement | [Security comparison](security-and-execution-models.md) | `adopt` | keep | Keep `allow`/`ask`/`deny`, approval outcome, provider, and enforcement completeness separate |
 | Fail-closed safety policy | [Security comparison](security-and-execution-models.md) | `adopt` | keep | Missing approval, invalid policy, or unavailable required confinement cannot become allow |
 | Multi-dimensional execution policy interface | [Security comparison](security-and-execution-models.md) | `adopt` | keep | P0 may implement only local process/OS sandbox, but the interface reserves filesystem, process, network, privilege, resource, and audit dimensions |
@@ -57,17 +57,17 @@ which parts of mixed runtime/extension tests remain mandatory in P0.
 | SDK JSON-RPC and ACP | [Extensions comparison](extensions-and-product-surfaces.md), [Protocol comparison](../landscape/protocols/mcp-acp-a2a-boundaries.md) | `later` | later | Prototype after session events, cancellation, errors, and permissions stabilize |
 | A2A and remote multi-agent delegation | [Protocol comparison](../landscape/protocols/mcp-acp-a2a-boundaries.md) | `watch` | cut | Not required for a single local coding agent |
 | Desktop, IDE, and Web shells in parallel | [Extensions comparison](extensions-and-product-surfaces.md) | `later` | later | CLI/TUI and headless validate P0; one product shell at a time afterwards |
-| Background shell/process management | [Current scope](../../DEVELOPMENT_SCOPE_V1.md), [Fixed tasks](../landscape/benchmarks/fixed-task-suite.md) | `adopt` | keep | Start, inspect, stop, and safely reconcile processes; distinct from autonomous background agents |
+| Background shell/process management | [Current scope](../../docs/product/scope.md), [Fixed tasks](../landscape/benchmarks/fixed-task-suite.md) | `adopt` | keep | Start, inspect, stop, and safely reconcile processes; distinct from autonomous background agents |
 | Subagents and background agents | [DeepSeek L8](../source-atlas/deepseek-harness/03-security-extensions-operations.md), [Claude L8](../source-atlas/claude-code/03-security-extensions-operations.md) | `later` | later | Design coordination and ownership now; implementation remains P1 unless explicitly reprioritized |
-| Autonomous task orchestration | [Execution contracts](../../docs/architecture/EXECUTION_CONTRACTS_V1.md), [Subtraction log](../decisions/subtraction-log.md) | `adapt` | later | Agent-led planning plus bounded ready-task dispatch is the extension baseline; the user confirmed delivery after basic P0; arbitrary-script execution remains deferred |
-| Persistent goal control | [DeepSeek goal](../../.research/deepseek-harness/packages/goal/goal/README.md), [Architecture draft](../../ARCHITECTURE_V1.md) | `adapt` | later | Separate objective, continuation authority, budget, and evidence; explicitly deferred beyond the basic P0 release |
+| Autonomous task orchestration | [Execution contracts](../../docs/architecture/execution-contracts.md), [Subtraction log](../../docs/decisions/subtraction-log.md) | `adapt` | later | Agent-led planning plus bounded ready-task dispatch is the extension baseline; the user confirmed delivery after basic P0; arbitrary-script execution remains deferred |
+| Persistent goal control | [DeepSeek goal](../../.references/deepseek-harness/packages/goal/goal/README.md), [Architecture draft](../../docs/architecture/overview.md) | `adapt` | later | Separate objective, continuation authority, budget, and evidence; explicitly deferred beyond the basic P0 release |
 | Workflow graph and checkpoint runtime | [Runtime paradigm scan](../landscape/products/runtime-paradigm-scan.md) | `watch` | later | LangGraph-style supersteps are not required by the current coding loop |
 | Product telemetry | [DeepSeek L8](../source-atlas/deepseek-harness/03-security-extensions-operations.md), [Claude L8](../source-atlas/claude-code/03-security-extensions-operations.md) | `later` | later | Local audit is required; external telemetry is optional and derived |
-| Rich task/child-run trajectory views | [P0 plan](../../docs/architecture/P0_IMPLEMENTATION_PLAN_V1.md), [Execution contracts](../../docs/architecture/EXECUTION_CONTRACTS_V1.md) | `later` | later | Rich views follow the base release; durable runtime facts, permissions, errors, and verification remain queryable in P0 |
+| Rich task/child-run trajectory views | [P0 plan](../../docs/architecture/p0-plan.md), [Execution contracts](../../docs/architecture/execution-contracts.md) | `later` | later | Rich views follow the base release; durable runtime facts, permissions, errors, and verification remain queryable in P0 |
 | Fixed P0 benchmark suite | [Fixed task suite](../landscape/benchmarks/fixed-task-suite.md), [Evaluation evidence](../landscape/benchmarks/runtime-evaluation-and-failure-evidence.md) | `adopt` | keep | 27 frozen tasks plus infrastructure/task-failure separation and immutable results |
 | Long-term memory and personalization | [Mechanism notes](../landscape/papers/mechanism-notes.md) | `later` | later | No persistent user-memory product feature before core runtime release |
-| RSI or self-modifying harness | [Frontier radar](../frontier-radar/2026-09-current-mechanism-radar.md), [Current scope](../../DEVELOPMENT_SCOPE_V1.md) | `later` | cut | Retained as a long-term product direction; current implementation is deferred, not the vision itself |
-| Proactive sensing and workflow flywheel | [Subtraction log](../decisions/subtraction-log.md) | `later` | cut | Remains frozen until the P0 coding runtime passes its release gate |
+| RSI or self-modifying harness | [Frontier radar](../frontier-radar/2026-09-current-mechanism-radar.md), [Current scope](../../docs/product/scope.md) | `later` | cut | Retained as a long-term product direction; current implementation is deferred, not the vision itself |
+| Proactive sensing and workflow flywheel | [Subtraction log](../../docs/decisions/subtraction-log.md) | `later` | cut | Remains frozen until the P0 coding runtime passes its release gate |
 
 ## P0 Hard Constraints
 

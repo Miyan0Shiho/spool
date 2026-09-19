@@ -1,0 +1,26 @@
+{
+  "suite": "BENCH-FIXED-V1",
+  "frozenAt": "2026-09-19",
+  "calibrationRun": "benchmarks/fixed-v1/results/BENCH-FIXED-V1-2026-09-19.jsonl",
+  "requirements": {
+    "tasks": 27,
+    "minimumPass": 27,
+    "maximumFail": 0,
+    "maximumInfraError": 0,
+    "maximumTotalDurationMs": 900000,
+    "maximumModelCalls": 350,
+    "maximumInputTokens": 1700000,
+    "maximumOutputTokens": 150000,
+    "maximumToolCalls": 450,
+    "maximumTaskAttempts": 81,
+    "criticalTasks": [
+      "T19",
+      "T20",
+      "T21",
+      "T24",
+      "T25",
+      "T26",
+      "T27"
+    ]
+  }
+}

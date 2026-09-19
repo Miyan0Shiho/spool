@@ -1,6 +1,20 @@
 .DS_Store
 
+# Local build and dependency outputs.
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+__pycache__/
+benchmark-results/
+
+# Generated B0 probe state.
+probes/b0/**/raw/
+probes/b0/**/run-*/
+probes/b0/**/*.sqlite
+probes/b0/**/*.sqlite-wal
+probes/b0/**/*.sqlite-shm
+probes/b0/process/pid-identity
+
 # Local reference-source snapshots are research inputs, not product code.
-.research/
-docx/claude-code/
-docx/deepseek-harness/
+.references/

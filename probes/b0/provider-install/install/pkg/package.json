@@ -1,0 +1,18 @@
+{
+  "name": "spool-b0-install-fixture",
+  "version": "0.0.0",
+  "description": "Zero-dependency B0 packaging fixture",
+  "type": "module",
+  "bin": {
+    "spool-b0-fixture": "./bin/spool-b0-fixture.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "UNLICENSED"
+}

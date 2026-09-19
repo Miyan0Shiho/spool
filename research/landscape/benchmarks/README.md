@@ -8,7 +8,7 @@
 >
 > Canonical task file: [`fixed-task-suite.md`](fixed-task-suite.md)
 >
-> Product authority: [`../../../DEVELOPMENT_SCOPE_V1.md`](../../../DEVELOPMENT_SCOPE_V1.md)
+> Product authority: [`../../../docs/product/scope.md`](../../../docs/product/scope.md)
 
 This directory defines the fixed small-repository task suite used to evaluate the
 P0 coding-agent loop and will contain the fixtures, evaluators, and run
@@ -30,7 +30,7 @@ benchmark results that have not actually been produced.
   digests and requires a new suite version unless the change only fixes
   documentation without affecting behavior.
 - This directory does not modify or supersede entries in
-  [`../../decisions/subtraction-log.md`](../../decisions/subtraction-log.md).
+  [`../../decisions/subtraction-log.md`](../../../docs/decisions/subtraction-log.md).
 - The fixture generators and evaluator assets referenced by the task suite have
   not been materialized in this revision. A run must not start until they exist
   and pass their own setup checks.
